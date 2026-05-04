@@ -55,11 +55,27 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
+  const conn = await db.getConnection();
   try {
-    const [result] = await db.query('DELETE FROM Mecanico WHERE dni_mecanico = ?', [req.params.id]);
-    if (result.affectedRows === 0) return res.status(404).json({ success: false, data: null, message: 'Mecánico no encontrado.' });
-    res.status(200).json({ success: true, data: null, message: 'Mecánico eliminado correctamente.' });
+    await conn.beginTransaction();
+
+    // Primero eliminar las reparaciones asociadas al mecánico
+    await conn.query('DELETE FROM Reparacion WHERE dni_mecanico = ?', [req.params.id]);
+
+    // Luego eliminar al mecánico
+    const [result] = await conn.query('DELETE FROM Mecanico WHERE dni_mecanico = ?', [req.params.id]);
+    if (result.affectedRows === 0) {
+      await conn.rollback();
+      conn.release();
+      return res.status(404).json({ success: false, data: null, message: 'Mecánico no encontrado.' });
+    }
+
+    await conn.commit();
+    conn.release();
+    res.status(200).json({ success: true, data: null, message: 'Mecánico y sus reparaciones eliminados correctamente.' });
   } catch (error) {
+    await conn.rollback();
+    conn.release();
     console.error('[mecanicoController.remove]', error);
     res.status(500).json({ success: false, data: null, message: 'Error al eliminar mecánico.' });
   }

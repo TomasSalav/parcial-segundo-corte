@@ -12,6 +12,22 @@ CREATE DATABASE IF NOT EXISTS concesionario_coches
 USE concesionario_coches;
 
 -- ============================================================
+-- TABLA: usuarios (Autenticación)
+-- ============================================================
+CREATE TABLE IF NOT EXISTS usuarios (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    usuario    VARCHAR(50)  NOT NULL UNIQUE,
+    password   VARCHAR(255) NOT NULL,
+    imagen     VARCHAR(255) DEFAULT NULL,
+    rol        ENUM('admin','usuario','moderador') NOT NULL DEFAULT 'usuario',
+    creado_en  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insertar usuario administrador por defecto (password: Admin123!)
+INSERT IGNORE INTO usuarios (usuario, password, rol) VALUES
+    ('admin', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
+
+-- ============================================================
 -- TABLA: Cliente
 -- ============================================================
 CREATE TABLE IF NOT EXISTS Cliente (

@@ -34,7 +34,7 @@ Desarrollada para la materia **Programación II**, Universidad Libre Seccional P
    DB_PORT=3306
    DB_USER=root
    DB_PASSWORD=tu_password  # ¡Importante configurar esto si tienes contraseña!
-   DB_NAME=concesionario_db
+   DB_NAME=concesionario_coches
    
    JWT_SECRET=concesionario_jwt_super_secreto_2026
    JWT_EXPIRES=8h

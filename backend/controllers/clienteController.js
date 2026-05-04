@@ -60,11 +60,27 @@ const update = async (req, res) => {
 
 // DELETE /api/clientes/:id
 const remove = async (req, res) => {
+  const conn = await db.getConnection();
   try {
-    const [result] = await db.query('DELETE FROM Cliente WHERE dni_cliente = ?', [req.params.id]);
-    if (result.affectedRows === 0) return res.status(404).json({ success: false, data: null, message: 'Cliente no encontrado.' });
-    res.status(200).json({ success: true, data: null, message: 'Cliente eliminado correctamente.' });
+    await conn.beginTransaction();
+
+    // Primero eliminar las compras asociadas al cliente
+    await conn.query('DELETE FROM Compra WHERE dni_cliente = ?', [req.params.id]);
+
+    // Luego eliminar el cliente
+    const [result] = await conn.query('DELETE FROM Cliente WHERE dni_cliente = ?', [req.params.id]);
+    if (result.affectedRows === 0) {
+      await conn.rollback();
+      conn.release();
+      return res.status(404).json({ success: false, data: null, message: 'Cliente no encontrado.' });
+    }
+
+    await conn.commit();
+    conn.release();
+    res.status(200).json({ success: true, data: null, message: 'Cliente y sus compras eliminados correctamente.' });
   } catch (error) {
+    await conn.rollback();
+    conn.release();
     console.error('[clienteController.remove]', error);
     res.status(500).json({ success: false, data: null, message: 'Error al eliminar cliente.' });
   }

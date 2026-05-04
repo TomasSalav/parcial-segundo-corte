@@ -8,12 +8,12 @@ import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 const navItems = [
-  { to: '/dashboard',    label: 'Dashboard',    icon: LayoutDashboard },
-  { to: '/clientes',     label: 'Clientes',     icon: Users },
-  { to: '/coches',       label: 'Coches',       icon: Car },
-  { to: '/mecanicos',    label: 'Mecánicos',    icon: Wrench },
+  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/clientes', label: 'Clientes', icon: Users },
+  { to: '/coches', label: 'Coches', icon: Car },
+  { to: '/mecanicos', label: 'Mecánicos', icon: Wrench },
   { to: '/reparaciones', label: 'Reparaciones', icon: Settings },
-  { to: '/compras',      label: 'Compras',      icon: ShoppingCart },
+  { to: '/compras', label: 'Compras', icon: ShoppingCart },
 ];
 
 export default function Navbar() {
@@ -42,16 +42,16 @@ export default function Navbar() {
   };
 
   const roleBadge = {
-    admin:      'bg-purple-800 text-purple-200',
-    moderador:  'bg-blue-800 text-blue-200',
-    usuario:    'bg-slate-600 text-slate-200',
+    admin: 'bg-purple-800 text-purple-200',
+    moderador: 'bg-blue-800 text-blue-200',
+    usuario: 'bg-slate-600 text-slate-200',
   };
 
   return (
     <aside className={`${open ? 'w-64' : 'w-16'} bg-slate-800 border-r border-slate-700 flex flex-col transition-all duration-300 min-h-screen`}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-slate-700">
-        {open && <span className="text-blue-400 font-bold text-lg">🚗 Concesionario</span>}
+        {open && <span className="text-blue-400 font-bold text-lg">Concesionario</span>}
         <button onClick={() => setOpen(!open)} className="text-slate-400 hover:text-white transition-colors">
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>

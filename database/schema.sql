@@ -3,10 +3,10 @@
 -- Programación II · Corte 2 · Unilibre Pereira 2026-1
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS concesionario_db
+CREATE DATABASE IF NOT EXISTS concesionario_coches
   CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE concesionario_db;
+USE concesionario_coches;
 
 -- ── Tabla de autenticación (RF-01) ────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS usuarios (

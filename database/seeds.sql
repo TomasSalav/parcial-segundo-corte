@@ -3,7 +3,7 @@
 -- Ejecutar DESPUÉS de schema.sql
 -- ============================================================
 
-USE concesionario_db;
+USE concesionario_coches;
 
 -- ── Usuarios (contraseñas hasheadas con bcrypt 10 rounds) ────────────────────
 -- password para todos: Admin123!  →  genera el hash con: node -e "require('bcrypt').hash('Admin123!',10).then(console.log)"
