@@ -41,7 +41,7 @@ export default function Dashboard() {
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">
-            Bienvenido, {user?.usuario} 👋
+            Bienvenido, {user?.usuario}
           </h1>
           <p className="text-slate-400 mt-1">Panel de control — Concesionario de Coches</p>
         </div>
