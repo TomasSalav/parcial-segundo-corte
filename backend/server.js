@@ -20,7 +20,7 @@ app.use('/api/compras',     require('./routes/compra.routes'));
 
 // ── Health check ──────────────────────────────────────────────────────────────
 app.get('/api/health', (_req, res) => {
-  res.json({ success: true, message: 'API Concesionario funcionando ✅', timestamp: new Date() });
+  res.json({ success: true, message: 'API Concesionario funcionando', timestamp: new Date() });
 });
 
 // ── Ruta no encontrada ────────────────────────────────────────────────────────
@@ -31,6 +31,6 @@ app.use((_req, res) => {
 // ── Iniciar servidor ──────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-  console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Health check: http://localhost:${PORT}/api/health`);
 });
